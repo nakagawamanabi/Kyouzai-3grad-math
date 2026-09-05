@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>あまりをどうする？</title>
+<style>
+:root{--ink:#18364b;--green:#168b78;--blue:#327fc1;--red:#e44d4d;--gold:#e8a837;--paper:#f7fcfa}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:"BIZ UDPGothic","Yu Gothic",sans-serif;color:var(--ink);background:#e8f4f0;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+#app{position:fixed;inset:0;height:100vh;height:100dvh;display:grid;grid-template-rows:minmax(58px,12vh) minmax(0,1fr) minmax(58px,11vh);gap:min(1.2vh,10px);padding:max(8px,1.3vh) max(12px,1.8vw);background:radial-gradient(circle at 90% 0,#fff 0 7%,transparent 26%),linear-gradient(135deg,#fbfffe,#e9f4ef)}
+header{display:flex;align-items:center;justify-content:space-between;gap:2vw;min-height:0}.title{font-weight:900;font-size:clamp(24px,3.2vw,50px);white-space:nowrap}.problem{background:#fff;border:3px solid #8dc9bc;border-radius:16px;padding:.38em .8em;font-weight:800;font-size:clamp(15px,1.65vw,27px);line-height:1.35;box-shadow:0 4px 0 #bfddd6}
+#scene{position:relative;min-height:0;overflow:hidden;background:rgba(255,255,255,.7);border-radius:22px;border:2px solid #c5ded8}
+.screen{position:absolute;inset:0;padding:1.3vh 2vw;opacity:0;visibility:hidden;transition:opacity .28s}.screen.on{opacity:1;visibility:visible}
+/* 本立て */
+#bookScreen{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,30%);gap:2vw;align-items:center}.shelf-area{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center}.scale{width:min(93%,950px);display:flex;justify-content:space-between;font-size:clamp(12px,1.25vw,21px);font-weight:800;color:#567;padding:0 .5%;margin-bottom:3px}.bookcase{position:relative;width:min(93%,950px);height:49%;min-height:150px;border-left:clamp(14px,2vw,27px) solid #c58a32;border-right:clamp(14px,2vw,27px) solid #c58a32;border-bottom:clamp(17px,2.2vw,30px) solid #b87827;border-radius:9px 9px 5px 5px;background:repeating-linear-gradient(90deg,transparent 0 calc(13.333% - 1px),#d7e5e2 calc(13.333% - 1px) 13.333%)}
+.books{position:absolute;left:0;right:0;bottom:0;top:5%;display:flex;align-items:end}.book{height:93%;width:13.333%;flex:none;border-radius:7px 7px 2px 2px;background:linear-gradient(90deg,#26958c,#53b8ac 55%,#187b73);border:2px solid #137067;color:#fff;display:flex;justify-content:center;align-items:center;font-size:clamp(22px,3vw,48px);font-weight:900;opacity:0;transform:translateY(-45px);transition:.38s;box-shadow:inset -5px 0 #0001}.book.show{opacity:1;transform:none}.book.try{opacity:.88;transform:none;background:linear-gradient(90deg,#e76655,#f39177);border-color:#b94336;animation:bump .7s ease-in-out infinite alternate}@keyframes bump{from{transform:translateX(0)}to{transform:translateX(-12px)}}
+.space{position:absolute;left:93.333%;right:0;bottom:0;top:5%;background:#fff4a8;border:3px dashed var(--red);display:flex;align-items:center;justify-content:center;color:var(--red);font-weight:900;font-size:clamp(17px,2.2vw,34px);opacity:0;transition:.3s}.space.show{opacity:1}.space span{writing-mode:vertical-rl}
+.side{height:100%;display:flex;flex-direction:column;justify-content:center;gap:1.5vh}.formula,.prompt,.answer{background:#fff;border-radius:18px;padding:.55em .7em;text-align:center;font-size:clamp(20px,2.45vw,39px);font-weight:900;box-shadow:0 5px 0 #ccdcd8;opacity:0;transform:scale(.96);transition:.3s}.visible{opacity:1!important;transform:none!important}.formula{color:var(--blue);border:3px solid #9cc8e8}.prompt{border:4px solid var(--gold)}.answer{border:4px solid var(--green);color:var(--green)}.small{display:block;font-size:.66em;color:#516675;margin-top:.25em}.red{color:var(--red)}
+/* 比較 */
+#compareScreen{display:grid;grid-template-rows:auto 1fr auto;gap:1vh}.compare-q{text-align:center;font-size:clamp(22px,2.7vw,43px);font-weight:900}.cards{display:grid;grid-template-columns:1fr 1fr;gap:2vw;min-height:0}.card{background:#fff;border:4px solid #9ecdc3;border-radius:20px;padding:1.1vh 1.2vw;display:grid;grid-template-rows:auto auto 1fr auto;gap:.4vh;min-height:0}.card h2{text-align:center;margin:0;font-size:clamp(21px,2.5vw,39px)}.eq{text-align:center;font-size:clamp(21px,2.45vw,39px);font-weight:900;color:var(--blue)}.mini{position:relative;min-height:0;display:flex;align-items:center;justify-content:center}.people{display:flex;gap:.35vw}.person{width:clamp(23px,3.1vw,49px);height:clamp(45px,6.2vw,88px);position:relative}.person:before{content:"";position:absolute;left:24%;top:0;width:52%;aspect-ratio:1;border-radius:50%;background:#efba80;box-shadow:inset 0 6px #4a3529}.person:after{content:"";position:absolute;left:13%;top:37%;width:74%;height:57%;border-radius:45% 45% 12% 12%;background:#ee735e;border-bottom:8px solid #496b86}.mini-shelf{width:78%;height:72%;border-left:12px solid #bd8030;border-right:12px solid #bd8030;border-bottom:16px solid #a96e24;display:flex;align-items:end}.mini-book{height:91%;width:13.333%;background:#3da79d;border:1px solid #187a72}.mini-gap{height:91%;width:6.667%;background:#ffec82;border:2px dashed var(--red)}.reason{text-align:center;font-weight:900;font-size:clamp(17px,1.8vw,29px);line-height:1.25;opacity:0;transition:.3s}.conclusion{text-align:center;background:#eaf7f3;border:3px solid var(--green);border-radius:16px;padding:.3em;font-size:clamp(20px,2.35vw,38px);font-weight:900;opacity:0;transition:.3s}
+footer{position:relative;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1vw}.dots{display:flex;gap:7px}.dot{width:12px;height:12px;border-radius:50%;background:#b7cbc6}.dot.on{background:var(--green);transform:scale(1.25)}button{border:0;border-radius:15px;padding:.48em 1.1em;font-family:inherit;font-size:clamp(18px,2vw,32px);font-weight:900;color:#fff;background:var(--green);box-shadow:0 6px 0 #086457;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:active{transform:translateY(4px);box-shadow:0 2px 0 #086457}#reset{justify-self:end;background:#718995;box-shadow:0 6px 0 #4d626d;font-size:clamp(15px,1.35vw,23px)}
+@media(max-height:620px){#app{grid-template-rows:70px minmax(0,1fr) 56px;padding:6px 12px;gap:5px}.problem{line-height:1.18}.bookcase{height:53%;min-height:120px}.side{gap:6px}.screen{padding:6px 15px}.card{padding:5px 10px}.person{height:55px;width:30px}}
+@media(orientation:portrait){#app:after{content:"iPadを横向きにしてください";position:fixed;inset:0;z-index:99;background:#e8f4f0;display:grid;place-items:center;font-size:7vw;font-weight:900;color:var(--green);padding:10vw;text-align:center}}
+</style>
+</head>
+<body>
+<main id="app">
+ <header><div class="title">あまりを どうする？</div><div class="problem">はば30cmの本立てに、<br>あつさ4cmの本を立てます。</div></header>
+ <section id="scene">
+  <div id="bookScreen" class="screen on">
+   <div class="shelf-area">
+    <div class="scale"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span><span>20</span><span>24</span><span>28</span><span>30cm</span></div>
+    <div class="bookcase"><div id="books" class="books"></div><div id="space" class="space"><span>のこり 2cm</span></div></div>
+   </div>
+   <aside class="side"><div id="formula" class="formula">30÷4＝7 あまり2</div><div id="prompt" class="prompt"></div><div id="answer" class="answer">立てられる本は <span class="red">7さつ</span></div></aside>
+  </div>
+  <div id="compareScreen" class="screen">
+   <div class="compare-q">どちらも「あまり」がある。答えも同じ考え方？</div>
+   <div class="cards">
+    <article class="card"><h2>長いす</h2><div class="eq">35÷4＝8 あまり3</div><div class="mini"><div class="people"><i class="person"></i><i class="person"></i><i class="person"></i></div></div><div id="chairReason" class="reason"><span class="red">3人</span>も、みんなすわる。<br>だから、もう1きゃく必要。<br><b>答え 9きゃく</b></div></article>
+    <article class="card"><h2>本立て</h2><div class="eq">30÷4＝7 あまり2</div><div class="mini"><div class="mini-shelf"><i class="mini-book"></i><i class="mini-book"></i><i class="mini-book"></i><i class="mini-book"></i><i class="mini-book"></i><i class="mini-book"></i><i class="mini-book"></i><i class="mini-gap"></i></div></div><div id="bookReason" class="reason"><span class="red">2cm</span>には、4cmの本は入らない。<br>だから、もう1さつは入らない。<br><b>答え 7さつ</b></div></article>
+   </div>
+   <div id="conclusion" class="conclusion">あまりをどうするかは、<span class="red">問題の場面</span>を見て決める。</div>
+  </div>
+ </section>
+ <footer><div id="dots" class="dots"></div><button type="button" id="next" onclick="advance()">本を入れる ▶</button><button type="button" id="reset" onclick="resetLesson()">↺ はじめにもどる</button></footer>
+</main>
+<script>
+var step=0, maxStep=8, books=document.getElementById('books'), i;
+for(i=1;i<=8;i++){var b=document.createElement('i');b.className='book';b.innerHTML=i;books.appendChild(b)}
+var dots=document.getElementById('dots');for(i=0;i<=maxStep;i++){var d=document.createElement('i');d.className='dot';dots.appendChild(d)}
+function hasClass(el,n){return(' '+el.className+' ').indexOf(' '+n+' ')>-1}
+function toggleClass(el,n,on){if(on&&!hasClass(el,n))el.className+=' '+n;if(!on&&hasClass(el,n))el.className=(' '+el.className+' ').replace(' '+n+' ',' ').replace(/^\s+|\s+$/g,'')}
+function show(id,on){toggleClass(document.getElementById(id),'visible',on)}
+function render(){
+ var allBooks=document.querySelectorAll('.book'), ds=document.querySelectorAll('.dot'), compare=step>=6;
+ toggleClass(document.getElementById('bookScreen'),'on',!compare);toggleClass(document.getElementById('compareScreen'),'on',compare);
+ for(i=0;i<allBooks.length;i++){toggleClass(allBooks[i],'show',!compare&&((step>=1&&i<7)||(step===4&&i===7)));toggleClass(allBooks[i],'try',!compare&&step===4&&i===7)}
+ show('formula',step>=2&&!compare);toggleClass(document.getElementById('space'),'show',step>=3&&!compare);show('answer',step===5);
+ var p=document.getElementById('prompt');show('prompt',step>=3&&step<=4);p.innerHTML=step===3?'あまりがあるから、<br>もう1さつ入る？':step===4?'あと2cm。<br><span class="red">4cmの本は入らない！</span>':'';
+ show('chairReason',step>=7);show('bookReason',step>=7);show('conclusion',step>=8);
+ var labels=['本を入れる ▶','式をたしかめる ▶','あまりはどこ？ ▶','8さつ目をためす ▶','答えをたしかめる ▶','前の問題とくらべる ▶','あまりの意味を見る ▶','まとめる ▶','もう一度見る ↺'];document.getElementById('next').innerHTML=labels[step];
+ for(i=0;i<ds.length;i++)toggleClass(ds[i],'on',i===step)
+}
+function advance(){step=step===maxStep?0:step+1;render()}
+function resetLesson(){step=0;render()}
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();advance()}if(e.key==='ArrowLeft'){e.preventDefault();resetLesson()}});render();
+</script>
+</body>
+</html>

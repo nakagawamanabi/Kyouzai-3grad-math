@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>3年生 算数教材メニュー</title>
+<style>
+:root{--ink:#17384c;--green:#118b77;--blue:#397fc0;--paper:#f5fbf9;--line:#bfddd6}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"BIZ UDPGothic","Yu Gothic",sans-serif;color:var(--ink);background:var(--paper)}
+body{background:radial-gradient(circle at 93% 4%,#fff 0 6%,transparent 24%),linear-gradient(145deg,#fbfffe,#e8f4f0);padding:max(18px,3vw)}
+main{width:min(1100px,100%);margin:auto}.head{display:flex;align-items:center;gap:18px;margin-bottom:clamp(18px,3vh,34px)}
+.mark{width:clamp(58px,8vw,90px);aspect-ratio:1;border-radius:24px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:clamp(30px,4.5vw,54px);font-weight:900;box-shadow:0 7px 0 #086656;transform:rotate(-2deg)}
+h1{margin:0;font-size:clamp(30px,5vw,59px);letter-spacing:.04em}.sub{margin:.3em 0 0;font-size:clamp(15px,1.8vw,23px);color:#56717e;font-weight:700}
+.unit{background:#ffffffd9;border:3px solid var(--line);border-radius:26px;padding:clamp(16px,2.4vw,28px);box-shadow:0 8px 22px #195b4a12}
+.unit-title{display:flex;align-items:center;gap:.55em;margin:0 0 18px;font-size:clamp(24px,3.1vw,39px)}.unit-title:before{content:"";width:.35em;height:1.35em;background:#f0a23a;border-radius:10px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(15px,2.5vw,28px)}
+.card{position:relative;display:grid;grid-template-columns:minmax(110px,34%) 1fr;align-items:center;gap:clamp(10px,2vw,23px);min-height:clamp(180px,26vw,260px);padding:clamp(15px,2.2vw,25px);border:4px solid #b8d9d2;border-radius:24px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 8px 0 #c5ddd8;transition:.15s;overflow:hidden}.card:active{transform:translateY(6px);box-shadow:0 2px 0 #c5ddd8}.card:after{content:"開く  ▶";position:absolute;right:18px;bottom:14px;color:var(--green);font-weight:900;font-size:clamp(16px,1.8vw,23px)}
+.visual{height:80%;min-height:125px;display:flex;align-items:center;justify-content:center}.text h2{margin:0 0 .45em;font-size:clamp(23px,3vw,37px)}.text p{margin:0;font-size:clamp(15px,1.65vw,22px);line-height:1.5;font-weight:700;color:#58707c}
+/* 長いす */.bench{position:relative;width:95%;height:66px;background:#bf7c2f;border-radius:7px;margin-top:48px;box-shadow:0 14px 0 -8px #71451e}.people{position:absolute;left:5%;right:5%;bottom:29px;display:flex;justify-content:space-around}.person{width:27px;height:61px;position:relative}.person:before{content:"";position:absolute;left:23%;top:0;width:54%;aspect-ratio:1;border-radius:50%;background:#efbb81;box-shadow:inset 0 5px #4b3429}.person:after{content:"";position:absolute;left:10%;top:37%;width:80%;height:58%;border-radius:45% 45% 10% 10%;background:#e7695c;border-bottom:7px solid #496b86}
+/* 本立て */.shelf{width:95%;height:120px;border-left:12px solid #bd8030;border-right:12px solid #bd8030;border-bottom:16px solid #a96e24;display:flex;align-items:end;border-radius:4px}.book{height:91%;width:13.333%;background:linear-gradient(90deg,#288d85,#55b9ae);border:1px solid #176f69}.gap{height:91%;width:6.667%;background:#ffed89;border:2px dashed #e44d4d}
+.note{margin:22px 5px 0;text-align:center;color:#68808a;font-weight:700;font-size:clamp(13px,1.45vw,18px)}
+@media(max-width:700px){.cards{grid-template-columns:1fr}.card{min-height:180px}.head{align-items:flex-start}.card{grid-template-columns:125px 1fr}}
+@media(orientation:portrait) and (min-width:700px){.cards{grid-template-columns:1fr}.card{min-height:220px}}
+</style>
+</head>
+<body>
+<main>
+ <header class="head"><div class="mark">算</div><div><h1>3年生 算数教材</h1><p class="sub">使いたい教材を選んでください</p></div></header>
+ <section class="unit">
+  <h2 class="unit-title">あまりのあるわり算</h2>
+  <div class="cards">
+   <a class="card" href="amari-chair.html"><div class="visual"><div class="bench"><div class="people"><i class="person"></i><i class="person"></i><i class="person"></i></div></div></div><div class="text"><h2>長いす</h2><p>残った3人も座るには、<br>もう1きゃく必要？</p></div></a>
+   <a class="card" href="amari-books.html"><div class="visual"><div class="shelf"><i class="book"></i><i class="book"></i><i class="book"></i><i class="book"></i><i class="book"></i><i class="book"></i><i class="book"></i><i class="gap"></i></div></div><div class="text"><h2>本立て</h2><p>残った2cmに、<br>もう1さつ入る？</p></div></a>
+  </div>
+ </section>
+ <p class="note">※ 教材はこれから、この画面に追加していけます。</p>
+</main>
+</body>
+</html>
